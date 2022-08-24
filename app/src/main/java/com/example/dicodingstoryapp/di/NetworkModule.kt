@@ -1,6 +1,6 @@
 package com.example.dicodingstoryapp.di
 
-import androidx.viewbinding.BuildConfig
+import com.example.dicodingstoryapp.BuildConfig
 import com.example.dicodingstoryapp.data.source.remote.services.AuthService
 import com.example.dicodingstoryapp.data.source.remote.services.StoryService
 import com.haroldadmin.cnradapter.NetworkResponseAdapterFactory
@@ -43,7 +43,7 @@ object NetworkModule {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("https://story-api.dicoding.dev/v1/")
+            .baseUrl(BuildConfig.API_URL)
             .addCallAdapterFactory(NetworkResponseAdapterFactory())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(client)
