@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.auth.AuthActivity">
+    tools:context=".presentation.auth.register.RegisterActivity">
 
     <com.example.dicodingstoryapp.presentation.customview.CustomEditText
         android:id="@+id/ed_register_name"
@@ -13,7 +13,7 @@
         android:layout_marginHorizontal="@dimen/dimen_16"
         android:padding="@dimen/dimen_16"
         android:inputType="text"
-        android:hint="Name"
+        android:hint="@string/name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,7 +27,7 @@
         android:layout_marginTop="@dimen/dimen_16"
         android:padding="@dimen/dimen_16"
         android:inputType="textEmailAddress"
-        android:hint="Email"
+        android:hint="@string/email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ed_register_name"/>
@@ -40,7 +40,7 @@
         android:layout_marginTop="@dimen/dimen_16"
         android:padding="@dimen/dimen_16"
         android:inputType="textPassword"
-        android:hint="Password"
+        android:hint="@string/password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ed_register_email"/>

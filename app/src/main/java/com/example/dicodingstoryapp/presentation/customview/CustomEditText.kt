@@ -37,7 +37,7 @@ class CustomEditText: AppCompatEditText {
                     PASSWORD -> {
                         if (s.length < 6) {
                             background = ContextCompat.getDrawable(context, R.drawable.bg_edit_text_error)
-                            error = "Password length is less than 6"
+                            error = context.getString(R.string.text_error_password)
                         } else {
                             background = ContextCompat.getDrawable(context, R.drawable.bg_edit_text)
                         }
@@ -45,7 +45,7 @@ class CustomEditText: AppCompatEditText {
                     EMAIL -> {
                         if (!Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
                             background = ContextCompat.getDrawable(context, R.drawable.bg_edit_text_error)
-                            error = "Email is not valid"
+                            error = context.getString(R.string.text_error_email)
                         } else {
                             background = ContextCompat.getDrawable(context, R.drawable.bg_edit_text)
                         }

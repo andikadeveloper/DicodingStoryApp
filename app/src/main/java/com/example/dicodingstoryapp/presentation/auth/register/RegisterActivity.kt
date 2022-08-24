@@ -1,12 +1,12 @@
-package com.example.dicodingstoryapp.presentation.auth
+package com.example.dicodingstoryapp.presentation.auth.register
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.dicodingstoryapp.R
 
-class AuthActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_auth)
+        setContentView(R.layout.activity_register)
     }
 }

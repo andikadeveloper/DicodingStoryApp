@@ -7,7 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.activity.viewModels
 import com.example.dicodingstoryapp.R
-import com.example.dicodingstoryapp.presentation.auth.AuthActivity
+import com.example.dicodingstoryapp.presentation.auth.login.LoginActivity
 import com.example.dicodingstoryapp.presentation.story.list.ListStoryActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             var intent = Intent(this, ListStoryActivity::class.java)
 
             if (!isLogin) {
-                intent = Intent(this, AuthActivity::class.java)
+                intent = Intent(this, LoginActivity::class.java)
             }
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
