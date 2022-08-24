@@ -1,4 +1,4 @@
-package com.example.dicodingstoryapp.domain.usecase
+package com.example.dicodingstoryapp.domain.usecase.story
 
 import com.example.dicodingstoryapp.core.Resource
 import com.example.dicodingstoryapp.domain.model.Story

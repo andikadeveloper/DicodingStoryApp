@@ -20,11 +20,7 @@ class StoryRemoteSource @Inject constructor(
                 val response = storyService.getStories()
                 val stories = response.listStory ?: listOf()
 
-                if (stories.isNotEmpty()) {
-                    emit(ApiResponse.Success(stories))
-                } else {
-                    emit(ApiResponse.Empty)
-                }
+                emit(ApiResponse.Success(stories))
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
             }

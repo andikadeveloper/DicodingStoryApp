@@ -2,7 +2,7 @@ package com.example.dicodingstoryapp.presentation.story.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.example.dicodingstoryapp.domain.usecase.StoryUseCase
+import com.example.dicodingstoryapp.domain.usecase.story.StoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

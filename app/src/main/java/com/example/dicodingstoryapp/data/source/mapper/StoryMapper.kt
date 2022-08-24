@@ -5,7 +5,6 @@ import com.example.dicodingstoryapp.data.source.remote.responses.StoryResponse
 import com.example.dicodingstoryapp.domain.model.Story
 import javax.inject.Singleton
 
-@Singleton
 class StoryMapper {
     fun fromEntityToDomain(from: StoryEntity) = Story(
         id = from.id,

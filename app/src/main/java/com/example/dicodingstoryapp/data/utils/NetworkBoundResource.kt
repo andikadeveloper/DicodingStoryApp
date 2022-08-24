@@ -16,9 +16,6 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                     saveCallResult(apiResponse.data)
                     emitAll(loadFromDB().map { Resource.Success(it) })
                 }
-                is ApiResponse.Empty -> {
-                    emitAll(loadFromDB().map { Resource.Success(it) })
-                }
                 is ApiResponse.Error -> {
                     onFetchFailed()
                     emit(Resource.Error(apiResponse.message))

@@ -4,6 +4,7 @@
     package="com.example.dicodingstoryapp">
 
     <application
+        android:name=".core.StoryApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,19 +15,19 @@
         android:theme="@style/Theme.DicodingStoryApp"
         tools:targetApi="31">
         <activity
-            android:name=".AuthActivity"
+            android:name=".presentation.auth.AuthActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailStoryActivity"
+            android:name=".presentation.story.detail.DetailStoryActivity"
             android:exported="false" />
         <activity
-            android:name=".AddStoryActivity"
+            android:name=".presentation.story.add.AddStoryActivity"
             android:exported="false" />
         <activity
-            android:name=".ListStoryActivity"
+            android:name=".presentation.story.list.ListStoryActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

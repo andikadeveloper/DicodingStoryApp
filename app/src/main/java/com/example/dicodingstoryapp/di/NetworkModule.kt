@@ -1,6 +1,7 @@
 package com.example.dicodingstoryapp.di
 
 import androidx.viewbinding.BuildConfig
+import com.example.dicodingstoryapp.data.source.remote.services.AuthService
 import com.example.dicodingstoryapp.data.source.remote.services.StoryService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -41,7 +42,7 @@ object NetworkModule {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("https://story-api.dicoding.dev/v1")
+            .baseUrl("https://story-api.dicoding.dev/v1/")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(client)
             .build()
@@ -51,5 +52,10 @@ object NetworkModule {
     @Provides
     fun provideStoryService(retrofit: Retrofit): StoryService {
         return retrofit.create(StoryService::class.java)
+    }
+    @Singleton
+    @Provides
+    fun provideAuthService(retrofit: Retrofit): AuthService {
+        return retrofit.create(AuthService::class.java)
     }
 }

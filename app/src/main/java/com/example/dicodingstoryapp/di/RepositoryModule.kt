@@ -1,6 +1,8 @@
 package com.example.dicodingstoryapp.di
 
+import com.example.dicodingstoryapp.data.repository.AuthRepository
 import com.example.dicodingstoryapp.data.repository.StoryRepository
+import com.example.dicodingstoryapp.domain.repository.IAuthRepository
 import com.example.dicodingstoryapp.domain.repository.IStoryRepository
 import dagger.Binds
 import dagger.Module
@@ -13,4 +15,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun provideStoryRepository(storyRepository: StoryRepository): IStoryRepository
+
+    @Binds
+    abstract fun provideAuthRepository(authRepository: AuthRepository): IAuthRepository
 }
