@@ -4,6 +4,7 @@ import com.example.dicodingstoryapp.data.source.remote.request.AuthRequest
 import com.example.dicodingstoryapp.data.source.remote.responses.ApiResponse
 import com.example.dicodingstoryapp.data.source.remote.responses.UserInfoResponse
 import com.example.dicodingstoryapp.data.source.remote.services.AuthService
+import com.haroldadmin.cnradapter.NetworkResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -33,16 +34,15 @@ class AuthRemoteSource @Inject constructor(
 
     suspend fun login(payload: AuthRequest): Flow<ApiResponse<UserInfoResponse>> {
         return flow {
-            try {
-                val response = authService.login(payload)
-
-                if (response.error) {
-                    emit(ApiResponse.Error(response.message))
-                } else {
-                    emit(ApiResponse.Success(response.userInfo))
+            when (val response = authService.login(payload)) {
+                is NetworkResponse.Success -> {
+                    emit(ApiResponse.Success(response.body.userInfo))
                 }
-            } catch (e: Exception) {
-                emit(ApiResponse.Error(e.toString()))
+                is NetworkResponse.Error -> {
+                    val message = response.body?.message ?: ""
+
+                    emit(ApiResponse.Error(message))
+                }
             }
         }.flowOn(Dispatchers.IO)
     }

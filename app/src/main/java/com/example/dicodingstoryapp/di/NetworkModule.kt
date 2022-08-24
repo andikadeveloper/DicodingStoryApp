@@ -3,6 +3,7 @@ package com.example.dicodingstoryapp.di
 import androidx.viewbinding.BuildConfig
 import com.example.dicodingstoryapp.data.source.remote.services.AuthService
 import com.example.dicodingstoryapp.data.source.remote.services.StoryService
+import com.haroldadmin.cnradapter.NetworkResponseAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -24,7 +25,7 @@ object NetworkModule {
     fun provideOkHttpClient(): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()
             .setLevel(
-                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+                if (BuildConfig.BUILD_TYPE != "release") HttpLoggingInterceptor.Level.BODY
                 else HttpLoggingInterceptor.Level.NONE
             )
 
@@ -43,6 +44,7 @@ object NetworkModule {
 
         return Retrofit.Builder()
             .baseUrl("https://story-api.dicoding.dev/v1/")
+            .addCallAdapterFactory(NetworkResponseAdapterFactory())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(client)
             .build()
@@ -53,6 +55,7 @@ object NetworkModule {
     fun provideStoryService(retrofit: Retrofit): StoryService {
         return retrofit.create(StoryService::class.java)
     }
+
     @Singleton
     @Provides
     fun provideAuthService(retrofit: Retrofit): AuthService {

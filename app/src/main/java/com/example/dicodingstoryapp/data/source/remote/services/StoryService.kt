@@ -1,7 +1,7 @@
 package com.example.dicodingstoryapp.data.source.remote.services
 
 import com.example.dicodingstoryapp.data.source.remote.responses.ListStoryResponse
-import com.example.dicodingstoryapp.data.source.remote.responses.SuccessResponse
+import com.example.dicodingstoryapp.data.source.remote.responses.CommonResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.GET
@@ -18,5 +18,5 @@ interface StoryService {
     suspend fun createNewStory(
         @Part("description") description: RequestBody,
         @Part photo: MultipartBody.Part,
-    ): SuccessResponse
+    ): CommonResponse
 }

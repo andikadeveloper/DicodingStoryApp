@@ -11,23 +11,19 @@ import com.example.dicodingstoryapp.core.showToast
 import com.example.dicodingstoryapp.data.source.remote.request.AuthRequest
 import com.example.dicodingstoryapp.databinding.ActivityRegisterBinding
 import com.example.dicodingstoryapp.presentation.auth.login.LoginActivity
+import com.example.dicodingstoryapp.presentation.customview.CustomEditText
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
     private val viewModel by viewModels<RegisterViewModel>()
-    private val binding by lazy(LazyThreadSafetyMode.NONE) {
-        ActivityRegisterBinding.inflate(layoutInflater)
-    }
+    private lateinit var binding: ActivityRegisterBinding
 
-    private val listOfEditText = listOf(
-        binding.edRegisterName,
-        binding.edRegisterEmail,
-        binding.edRegisterPassword
-    )
+    private val listOfEditText = mutableListOf<CustomEditText>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         with (binding) {
@@ -58,6 +54,12 @@ class RegisterActivity : AppCompatActivity() {
         addTextChangedListener()
 
         btnRegister.setOnClickListener { onRegister() }
+
+        listOfEditText.addAll(listOf(
+            binding.edRegisterName,
+            binding.edRegisterEmail,
+            binding.edRegisterPassword
+        ))
     }
 
     private fun ActivityRegisterBinding.addTextChangedListener() {

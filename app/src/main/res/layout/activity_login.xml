@@ -12,13 +12,13 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_16"
         android:layout_marginTop="@dimen/dimen_16"
-        android:padding="@dimen/dimen_16"
-        android:inputType="textEmailAddress"
         android:hint="@string/email"
-        app:layout_constraintStart_toStartOf="parent"
+        android:inputType="textEmailAddress"
+        android:padding="@dimen/dimen_16"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.example.dicodingstoryapp.presentation.customview.CustomEditText
         android:id="@+id/ed_login_password"
@@ -26,24 +26,46 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_16"
         android:layout_marginTop="@dimen/dimen_16"
-        android:padding="@dimen/dimen_16"
-        android:inputType="textPassword"
         android:hint="@string/password"
+        android:inputType="textPassword"
+        android:padding="@dimen/dimen_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ed_login_email" />
+
+    <TextView
+        android:id="@+id/tv_not_have_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/not_have_account"
+        android:layout_marginTop="@dimen/dimen_16"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ed_login_email"/>
+        app:layout_constraintTop_toBottomOf="@id/ed_login_password" />
+
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        android:textSize="16sp"
+        android:textColor="@color/purple_700
+"
+        app:layout_constraintStart_toStartOf="@id/tv_not_have_account"
+        app:layout_constraintEnd_toEndOf="@id/tv_not_have_account"
+        app:layout_constraintTop_toBottomOf="@id/tv_not_have_account" />
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:enabled="false"
         android:layout_marginHorizontal="@dimen/dimen_16"
         android:layout_marginBottom="@dimen/dimen_16"
-        app:layout_constraintStart_toStartOf="parent"
+        android:enabled="false"
+        android:text="@string/login"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/pb_login"
@@ -51,9 +73,9 @@
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

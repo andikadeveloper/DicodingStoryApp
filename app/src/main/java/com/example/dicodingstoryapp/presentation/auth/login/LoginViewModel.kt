@@ -7,7 +7,6 @@ import com.example.dicodingstoryapp.data.source.remote.request.AuthRequest
 import com.example.dicodingstoryapp.domain.usecase.auth.AuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,10 +26,12 @@ class LoginViewModel @Inject constructor(
 
     fun login(payload: AuthRequest) {
         viewModelScope.launch {
-            when (val result = useCase.login(payload).first()) {
-                is Resource.Loading -> _event.send(UiEvent.Loading)
-                is Resource.Success -> _event.send(UiEvent.Success)
-                is Resource.Error -> _event.send(UiEvent.Error(result.message))
+            useCase.login(payload).collect {
+                when (it) {
+                    is Resource.Loading -> _event.send(UiEvent.Loading)
+                    is Resource.Success -> _event.send(UiEvent.Success)
+                    is Resource.Error -> _event.send(UiEvent.Error(it.message))
+                }
             }
         }
     }

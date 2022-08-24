@@ -6,10 +6,10 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Patterns
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.example.dicodingstoryapp.R
+import com.example.dicodingstoryapp.core.isValidEmail
 
 class CustomEditText: AppCompatEditText {
     constructor(context: Context): super(context) {
@@ -43,7 +43,7 @@ class CustomEditText: AppCompatEditText {
                         }
                     }
                     EMAIL -> {
-                        if (!Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
+                        if (!s.toString().isValidEmail()) {
                             background = ContextCompat.getDrawable(context, R.drawable.bg_edit_text_error)
                             error = context.getString(R.string.text_error_email)
                         } else {

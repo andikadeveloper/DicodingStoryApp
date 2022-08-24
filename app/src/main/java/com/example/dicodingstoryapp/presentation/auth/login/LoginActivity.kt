@@ -7,27 +7,22 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
+import com.example.dicodingstoryapp.core.isValidEmail
 import com.example.dicodingstoryapp.core.showToast
 import com.example.dicodingstoryapp.data.source.remote.request.AuthRequest
 import com.example.dicodingstoryapp.databinding.ActivityLoginBinding
+import com.example.dicodingstoryapp.presentation.auth.register.RegisterActivity
 import com.example.dicodingstoryapp.presentation.story.list.ListStoryActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel>()
-
-    private val binding by lazy(LazyThreadSafetyMode.NONE) {
-        ActivityLoginBinding.inflate(layoutInflater)
-    }
-
-    private val listOfEditText = listOf(
-        binding.edLoginEmail,
-        binding.edLoginPassword
-    )
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         with (binding) {
@@ -54,9 +49,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun ActivityLoginBinding.initBinding() {
-        addTextChangedListener()
+        edLoginEmail.addTextChangedListener { setActiveInActiveButtonLogin() }
+
+        edLoginPassword.addTextChangedListener { setActiveInActiveButtonLogin() }
 
         btnLogin.setOnClickListener { onLogin() }
+
+        tvRegister.setOnClickListener { navigateToRegister() }
     }
 
     private fun ActivityLoginBinding.onLogin() {
@@ -71,18 +70,17 @@ class LoginActivity : AppCompatActivity() {
         viewModel.login(payload)
     }
 
-    private fun ActivityLoginBinding.addTextChangedListener() {
-        for (editText in listOfEditText) {
-            editText.addTextChangedListener { setActiveInActiveButtonLogin() }
-        }
-    }
-
     private fun ActivityLoginBinding.setActiveInActiveButtonLogin() {
         btnLogin.isEnabled = false
 
+        val email = edLoginEmail.text.toString().trim()
+        val password = edLoginPassword.text.toString().trim()
+
         val rules = listOf(
-            edLoginEmail.error.isNullOrEmpty(),
-            edLoginPassword.error.isNullOrEmpty(),
+            email.isNotEmpty(),
+            password.isNotEmpty(),
+            email.isValidEmail(),
+            password.length >= 6
         )
 
         for (isValid in rules) {
@@ -99,6 +97,11 @@ class LoginActivity : AppCompatActivity() {
     private fun navigateToListStory() {
         val intent = Intent(this, ListStoryActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
+    private fun navigateToRegister() {
+        val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
     }
 }

@@ -6,9 +6,11 @@ import com.example.dicodingstoryapp.data.source.remote.AuthRemoteSource
 import com.example.dicodingstoryapp.data.source.remote.request.AuthRequest
 import com.example.dicodingstoryapp.data.source.remote.responses.ApiResponse
 import com.example.dicodingstoryapp.domain.repository.IAuthRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -39,7 +41,7 @@ class AuthRepository @Inject constructor(
                     emit(Resource.Success(true))
                 }
             }
-        }
+        }.flowOn(Dispatchers.IO)
     }
 
     override fun getUserInfo() = authLocalSource.getUserInfo()
