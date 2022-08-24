@@ -1,6 +1,10 @@
 package com.example.dicodingstoryapp.di
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.lifecycle.asLiveData
 import com.example.dicodingstoryapp.BuildConfig
+import com.example.dicodingstoryapp.data.source.local.utils.PreferencesKey
 import com.example.dicodingstoryapp.data.source.remote.services.AuthService
 import com.example.dicodingstoryapp.data.source.remote.services.StoryService
 import com.haroldadmin.cnradapter.NetworkResponseAdapterFactory
@@ -10,6 +14,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -22,7 +27,7 @@ import javax.inject.Singleton
 object NetworkModule {
 
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(dataStore: DataStore<Preferences>): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()
             .setLevel(
                 if (BuildConfig.BUILD_TYPE != "release") HttpLoggingInterceptor.Level.BODY
@@ -31,6 +36,16 @@ object NetworkModule {
 
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(Interceptor {
+                val token = dataStore.data.asLiveData().value?.get(PreferencesKey.TOKEN_KEY)
+
+                val req = it.request()
+                val newReq = req.newBuilder()
+                    .addHeader("Authorization", "Bearer $token")
+                    .build()
+
+                return@Interceptor it.proceed(newReq)
+            })
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .build()
