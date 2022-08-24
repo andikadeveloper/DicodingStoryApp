@@ -56,9 +56,8 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun ActivityRegisterBinding.initBinding() {
         addTextChangedListener()
-        setActiveInActiveButtonRegister()
 
-        binding.btnRegister.setOnClickListener { onRegister() }
+        btnRegister.setOnClickListener { onRegister() }
     }
 
     private fun ActivityRegisterBinding.addTextChangedListener() {
