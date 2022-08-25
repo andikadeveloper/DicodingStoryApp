@@ -8,5 +8,5 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListStoryViewModel @Inject constructor(storyUseCase: StoryUseCase): ViewModel() {
-    val stories = storyUseCase.getAllStory().asLiveData()
+    val stories = storyUseCase.getAllStory(1, 20, false).asLiveData()
 }
