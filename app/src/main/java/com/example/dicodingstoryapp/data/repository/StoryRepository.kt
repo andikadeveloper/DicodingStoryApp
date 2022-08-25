@@ -20,7 +20,7 @@ class StoryRepository @Inject constructor(
     private val storyLocalSource: StoryLocalSource,
     private val storyMapper: StoryMapper,
 ) : IStoryRepository {
-    override fun getAllStory(): Flow<Resource<List<Story>>> =
+    override fun getAllStory(page: Int, size: Int, isIncludeLocation: Boolean): Flow<Resource<List<Story>>> =
         object : NetworkBoundResource<List<Story>, List<StoryResponse>>() {
             override fun loadFromDB(): Flow<List<Story>> {
                 return storyLocalSource.getAllStory().map { stories ->
@@ -31,7 +31,7 @@ class StoryRepository @Inject constructor(
             override fun shouldFetch(data: List<Story>?) = data.isNullOrEmpty()
 
             override suspend fun createCall(): Flow<ApiResponse<List<StoryResponse>>> {
-                return storyRemoteSource.getAllStory()
+                return storyRemoteSource.getAllStory(page, size, isIncludeLocation)
             }
 
             override suspend fun saveCallResult(data: List<StoryResponse>) {

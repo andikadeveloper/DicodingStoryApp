@@ -5,6 +5,6 @@ import com.example.dicodingstoryapp.domain.model.Story
 import kotlinx.coroutines.flow.Flow
 
 interface IStoryRepository {
-    fun getAllStory(): Flow<Resource<List<Story>>>
+    fun getAllStory(page: Int, size: Int, isIncludeLocation: Boolean): Flow<Resource<List<Story>>>
     fun addNewStory(): Flow<Resource<Boolean>>
 }

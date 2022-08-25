@@ -2,16 +2,18 @@ package com.example.dicodingstoryapp.data.source.remote.services
 
 import com.example.dicodingstoryapp.data.source.remote.responses.ListStoryResponse
 import com.example.dicodingstoryapp.data.source.remote.responses.CommonResponse
+import com.haroldadmin.cnradapter.NetworkResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.GET
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
+import retrofit2.http.*
 
 interface StoryService {
     @GET(value = "stories")
-    suspend fun getStories(): ListStoryResponse
+    suspend fun getStories(
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("location") location: Int,
+    ): NetworkResponse<ListStoryResponse, CommonResponse>
 
     @Multipart
     @POST(value = "stories")
