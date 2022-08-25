@@ -3,55 +3,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/dimen_16"
+    android:layout_marginTop="@dimen/dimen_24"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/imgStoryPhoto"
+        android:id="@+id/iv_user_photo"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:src="@color/purple_700"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:layout_marginStart="@dimen/dimen_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Lorem"
+        android:layout_marginStart="@dimen/dimen_16"
+        app:layout_constraintStart_toEndOf="@id/iv_user_photo"
+        app:layout_constraintTop_toTopOf="@id/iv_user_photo"
+        app:layout_constraintBottom_toTopOf="@id/tv_item_date"/>
+
+    <TextView
+        android:id="@+id/tv_item_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="25 Agustus 2022"
+        android:layout_marginStart="@dimen/dimen_16"
+        app:layout_constraintStart_toEndOf="@id/iv_user_photo"
+        app:layout_constraintBottom_toBottomOf="@id/iv_user_photo"
+        app:layout_constraintTop_toBottomOf="@id/tv_item_name"/>
+
+    <ImageView
+        android:id="@+id/iv_item_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@color/purple_700"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/tvStoryName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Lorem"
-        android:layout_marginStart="@dimen/dimen_16"
-        android:layout_marginTop="@dimen/dimen_16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgStoryPhoto"/>
-
-    <TextView
-        android:id="@+id/tvStoryDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Lorem ipsum"
-        android:layout_marginStart="@dimen/dimen_16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvStoryName"/>
-
-    <TextView
-        android:id="@+id/tvStoryDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="12 Agustus 2020"
-        android:layout_marginTop="@dimen/dimen_16"
-        android:layout_marginStart="@dimen/dimen_16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvStoryDescription"/>
-
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:dividerThickness="@dimen/dimen_1"
         android:layout_marginTop="@dimen/dimen_16"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvStoryDate"/>
+        app:layout_constraintTop_toBottomOf="@id/iv_user_photo"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:dividerThickness="@dimen/dimen_1"
+        android:layout_marginTop="@dimen/dimen_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_item_photo"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

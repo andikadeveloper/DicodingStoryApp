@@ -2,10 +2,13 @@ package com.example.dicodingstoryapp.presentation.story.list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
+import com.example.dicodingstoryapp.R
 import com.example.dicodingstoryapp.databinding.ItemStoryBinding
 import com.example.dicodingstoryapp.domain.model.Story
 
@@ -19,15 +22,22 @@ class StoryAdapter: ListAdapter<Story, StoryAdapter.StoryViewHolder>(DIFF_CALLBA
     override fun onBindViewHolder(holder: StoryViewHolder, position: Int) {
         val story = getItem(position)
 
-        holder.binding.bind(story)
+        holder.binding.bind(story, position)
     }
 
-    private fun ItemStoryBinding.bind(story: Story) {
+    private fun ItemStoryBinding.bind(story: Story, position: Int) {
+        divider.isVisible = position != itemCount - 1
+
         story.apply {
-            imgStoryPhoto.load(photoUrl)
-            tvStoryName.text = name
-            tvStoryDescription.text = description
-            tvStoryDate.text = createdAt
+            ivUserPhoto.load(R.drawable.img_user) {
+                CircleCropTransformation()
+            }
+            ivItemPhoto.load(photoUrl) {
+                placeholder(R.drawable.img_empty_story)
+                error(R.drawable.img_empty_story)
+            }
+            tvItemName.text = name
+            tvItemDate.text = createdAt
         }
     }
 
