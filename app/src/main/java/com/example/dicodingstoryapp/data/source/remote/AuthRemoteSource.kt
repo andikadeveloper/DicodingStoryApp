@@ -18,16 +18,13 @@ class AuthRemoteSource @Inject constructor(
 ) {
     suspend fun register(payload: AuthRequest): Flow<ApiResponse<String>> {
         return flow {
-            try {
-                val response = authService.register(payload)
-
-                if (response.error) {
-                    emit(ApiResponse.Error(response.message))
-                } else {
-                    emit(ApiResponse.Success(response.message))
+            when (val response = authService.register(payload)) {
+                is NetworkResponse.Success -> {
+                    emit(ApiResponse.Success(response.body.message))
                 }
-            } catch (e: Exception) {
-                emit(ApiResponse.Error(e.toString()))
+                is NetworkResponse.Error -> {
+                    emit(ApiResponse.Error(response.body?.message ?: ""))
+                }
             }
         }.flowOn(Dispatchers.IO)
     }

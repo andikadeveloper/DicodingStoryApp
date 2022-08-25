@@ -1,8 +1,6 @@
 package com.example.dicodingstoryapp.di
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.lifecycle.asLiveData
+import android.content.SharedPreferences
 import com.example.dicodingstoryapp.BuildConfig
 import com.example.dicodingstoryapp.data.source.local.utils.PreferencesKey
 import com.example.dicodingstoryapp.data.source.remote.services.AuthService
@@ -27,7 +25,7 @@ import javax.inject.Singleton
 object NetworkModule {
 
     @Provides
-    fun provideOkHttpClient(dataStore: DataStore<Preferences>): OkHttpClient {
+    fun provideOkHttpClient(sharedPref: SharedPreferences): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()
             .setLevel(
                 if (BuildConfig.BUILD_TYPE != "release") HttpLoggingInterceptor.Level.BODY
@@ -37,7 +35,7 @@ object NetworkModule {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor(Interceptor {
-                val token = dataStore.data.asLiveData().value?.get(PreferencesKey.TOKEN_KEY)
+                val token = sharedPref.getString(PreferencesKey.TOKEN_KEY, "")
 
                 val req = it.request()
                 val newReq = req.newBuilder()

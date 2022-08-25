@@ -37,12 +37,12 @@ class AuthRepository @Inject constructor(
             when (val result = authRemoteSource.login(payload).first()) {
                 is ApiResponse.Error -> emit(Resource.Error(result.message))
                 is ApiResponse.Success -> {
-                    authLocalSource.saveUserInfo(result.data.userInfo)
+                    val token = result.data.userInfo.token
+
+                    authLocalSource.saveUserToken(token)
                     emit(Resource.Success(result.data.message))
                 }
             }
         }.flowOn(Dispatchers.IO)
     }
-
-    override fun getUserInfo() = authLocalSource.getUserInfo()
 }

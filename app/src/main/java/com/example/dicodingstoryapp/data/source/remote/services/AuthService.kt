@@ -9,7 +9,7 @@ import retrofit2.http.POST
 
 interface AuthService {
     @POST(value = "register")
-    suspend fun register(@Body payload: AuthRequest): CommonResponse
+    suspend fun register(@Body payload: AuthRequest): NetworkResponse<CommonResponse, CommonResponse>
 
     @POST(value = "login")
     suspend fun login(@Body payload: AuthRequest): NetworkResponse<LoginResponse, CommonResponse>

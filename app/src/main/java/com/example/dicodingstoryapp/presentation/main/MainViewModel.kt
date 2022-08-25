@@ -1,14 +1,14 @@
 package com.example.dicodingstoryapp.presentation.main
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import com.example.dicodingstoryapp.domain.usecase.auth.AuthUseCase
+import com.example.dicodingstoryapp.data.source.local.utils.PreferencesKey
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    authUseCase: AuthUseCase
+    sharedPreferences: SharedPreferences
 ): ViewModel() {
-    val userInfo = authUseCase.getUserInfo().asLiveData()
+    val token = sharedPreferences.getString(PreferencesKey.TOKEN_KEY, "") ?: ""
 }

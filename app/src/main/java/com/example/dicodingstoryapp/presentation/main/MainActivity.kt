@@ -19,11 +19,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel.userInfo.observe(this) { userInfo ->
-            val isLogin = userInfo.token.isNotEmpty()
+        val isLogin = viewModel.token.isNotEmpty()
 
-            initNavigation(isLogin)
-        }
+        initNavigation(isLogin)
     }
 
     private fun initNavigation(isLogin: Boolean) {
