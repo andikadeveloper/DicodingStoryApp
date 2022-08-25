@@ -27,7 +27,7 @@ class ListStoryActivity : AppCompatActivity() {
         binding = ActivityListStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.title = getString(R.string.your_story)
+        supportActionBar?.title = getString(R.string.story)
 
         with (binding) {
             initBinding()

@@ -8,6 +8,6 @@
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="not_have_account">Don\'t have account?</string>
-    <string name="your_story">Your Story</string>
+    <string name="story">Story</string>
     <string name="logout">Logout</string>
 </resources>
