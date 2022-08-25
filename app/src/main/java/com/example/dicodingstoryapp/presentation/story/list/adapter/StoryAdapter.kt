@@ -1,5 +1,6 @@
 package com.example.dicodingstoryapp.presentation.story.list.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -11,6 +12,7 @@ import coil.transform.CircleCropTransformation
 import com.example.dicodingstoryapp.R
 import com.example.dicodingstoryapp.databinding.ItemStoryBinding
 import com.example.dicodingstoryapp.domain.model.Story
+import com.example.dicodingstoryapp.presentation.story.detail.DetailStoryActivity
 
 class StoryAdapter: ListAdapter<Story, StoryAdapter.StoryViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
@@ -39,6 +41,15 @@ class StoryAdapter: ListAdapter<Story, StoryAdapter.StoryViewHolder>(DIFF_CALLBA
             tvItemName.text = name
             tvItemDate.text = createdAt
         }
+
+        root.setOnClickListener { navigateToDetailStory(story) }
+    }
+
+    private fun ItemStoryBinding.navigateToDetailStory(story: Story) {
+        val intent = Intent(root.context, DetailStoryActivity::class.java).apply {
+            putExtra(DetailStoryActivity.EXTRA_STORY, story)
+        }
+        root.context.startActivity(intent)
     }
 
     inner class StoryViewHolder(
