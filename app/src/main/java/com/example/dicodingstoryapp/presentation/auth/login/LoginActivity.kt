@@ -41,6 +41,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is UiEvent.Success -> {
                     renderLoading(false)
+                    showToast(it.message)
 
                     navigateToListStory()
                 }

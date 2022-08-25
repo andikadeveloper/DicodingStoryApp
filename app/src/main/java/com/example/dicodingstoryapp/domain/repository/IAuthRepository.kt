@@ -6,7 +6,7 @@ import com.example.dicodingstoryapp.domain.model.UserInfo
 import kotlinx.coroutines.flow.Flow
 
 interface IAuthRepository {
-    fun register(payload: AuthRequest): Flow<Resource<Boolean>>
-    fun login(payload: AuthRequest): Flow<Resource<Boolean>>
+    fun register(payload: AuthRequest): Flow<Resource<String>>
+    fun login(payload: AuthRequest): Flow<Resource<String>>
     fun getUserInfo(): Flow<UserInfo>
 }

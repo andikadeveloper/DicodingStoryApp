@@ -10,11 +10,11 @@ import javax.inject.Inject
 class AuthInteractor @Inject constructor(
     private val authRepository: IAuthRepository
 ): AuthUseCase {
-    override fun register(payload: AuthRequest): Flow<Resource<Boolean>> {
+    override fun register(payload: AuthRequest): Flow<Resource<String>> {
         return authRepository.register(payload)
     }
 
-    override fun login(payload: AuthRequest): Flow<Resource<Boolean>> {
+    override fun login(payload: AuthRequest): Flow<Resource<String>> {
         return authRepository.login(payload)
     }
 

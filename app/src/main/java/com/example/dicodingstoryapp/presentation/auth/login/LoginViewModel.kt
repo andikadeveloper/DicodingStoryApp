@@ -14,7 +14,7 @@ import javax.inject.Inject
 sealed class UiEvent {
     object Loading: UiEvent()
     data class Error(val message: String): UiEvent()
-    object Success: UiEvent()
+    data class Success(val message: String): UiEvent()
 }
 
 @HiltViewModel
@@ -29,7 +29,7 @@ class LoginViewModel @Inject constructor(
             useCase.login(payload).collect {
                 when (it) {
                     is Resource.Loading -> _event.send(UiEvent.Loading)
-                    is Resource.Success -> _event.send(UiEvent.Success)
+                    is Resource.Success -> _event.send(UiEvent.Success(it.data))
                     is Resource.Error -> _event.send(UiEvent.Error(it.message))
                 }
             }

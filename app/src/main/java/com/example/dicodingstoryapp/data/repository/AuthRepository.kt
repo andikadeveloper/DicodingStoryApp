@@ -19,7 +19,7 @@ class AuthRepository @Inject constructor(
     private val authRemoteSource: AuthRemoteSource,
     private val authLocalSource: AuthLocalSource,
 ): IAuthRepository {
-    override fun register(payload: AuthRequest): Flow<Resource<Boolean>> {
+    override fun register(payload: AuthRequest): Flow<Resource<String>> {
         return flow {
             emit(Resource.Loading)
 
@@ -30,15 +30,15 @@ class AuthRepository @Inject constructor(
         }
     }
 
-    override fun login(payload: AuthRequest): Flow<Resource<Boolean>> {
+    override fun login(payload: AuthRequest): Flow<Resource<String>> {
         return flow {
             emit(Resource.Loading)
 
             when (val result = authRemoteSource.login(payload).first()) {
                 is ApiResponse.Error -> emit(Resource.Error(result.message))
                 is ApiResponse.Success -> {
-                    authLocalSource.saveUserInfo(result.data)
-                    emit(Resource.Success(true))
+                    authLocalSource.saveUserInfo(result.data.userInfo)
+                    emit(Resource.Success(result.data.message))
                 }
             }
         }.flowOn(Dispatchers.IO)

@@ -1,16 +1,15 @@
 package com.example.dicodingstoryapp.presentation.auth.register
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
+import com.example.dicodingstoryapp.core.isValidEmail
 import com.example.dicodingstoryapp.core.showToast
 import com.example.dicodingstoryapp.data.source.remote.request.AuthRequest
 import com.example.dicodingstoryapp.databinding.ActivityRegisterBinding
-import com.example.dicodingstoryapp.presentation.auth.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,6 +39,7 @@ class RegisterActivity : AppCompatActivity() {
                 is UiEvent.Loading -> renderLoading()
                 is UiEvent.Success -> {
                     renderLoading(false)
+                    showToast(it.message)
 
                     navigateToLogin()
                 }
@@ -58,10 +58,16 @@ class RegisterActivity : AppCompatActivity() {
     private fun ActivityRegisterBinding.setActiveInActiveButtonRegister() {
         btnRegister.isEnabled = false
 
+        val name = edRegisterName.text.toString().trim()
+        val email = edRegisterEmail.text.toString().trim()
+        val password = edRegisterPassword.text.toString().trim()
+
         val rules = listOf(
-            !edRegisterName.text.isNullOrEmpty(),
-            edRegisterEmail.error.isNullOrEmpty(),
-            edRegisterPassword.error.isNullOrEmpty(),
+            name.isNotEmpty(),
+            email.isNotEmpty(),
+            password.isNotEmpty(),
+            email.isValidEmail(),
+            password.length >= 6,
         )
 
         for (isValid in rules) {
@@ -90,8 +96,6 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun navigateToLogin() {
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
+        finish()
     }
 }

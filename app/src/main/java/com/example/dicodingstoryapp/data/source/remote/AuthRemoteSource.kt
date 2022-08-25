@@ -2,7 +2,7 @@ package com.example.dicodingstoryapp.data.source.remote
 
 import com.example.dicodingstoryapp.data.source.remote.request.AuthRequest
 import com.example.dicodingstoryapp.data.source.remote.responses.ApiResponse
-import com.example.dicodingstoryapp.data.source.remote.responses.UserInfoResponse
+import com.example.dicodingstoryapp.data.source.remote.responses.LoginResponse
 import com.example.dicodingstoryapp.data.source.remote.services.AuthService
 import com.haroldadmin.cnradapter.NetworkResponse
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +16,7 @@ import javax.inject.Singleton
 class AuthRemoteSource @Inject constructor(
     private val authService: AuthService
 ) {
-    suspend fun register(payload: AuthRequest): Flow<ApiResponse<Boolean>> {
+    suspend fun register(payload: AuthRequest): Flow<ApiResponse<String>> {
         return flow {
             try {
                 val response = authService.register(payload)
@@ -24,7 +24,7 @@ class AuthRemoteSource @Inject constructor(
                 if (response.error) {
                     emit(ApiResponse.Error(response.message))
                 } else {
-                    emit(ApiResponse.Success(true))
+                    emit(ApiResponse.Success(response.message))
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
@@ -32,11 +32,11 @@ class AuthRemoteSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun login(payload: AuthRequest): Flow<ApiResponse<UserInfoResponse>> {
+    suspend fun login(payload: AuthRequest): Flow<ApiResponse<LoginResponse>> {
         return flow {
             when (val response = authService.login(payload)) {
                 is NetworkResponse.Success -> {
-                    emit(ApiResponse.Success(response.body.userInfo))
+                    emit(ApiResponse.Success(response.body))
                 }
                 is NetworkResponse.Error -> {
                     val message = response.body?.message ?: ""
