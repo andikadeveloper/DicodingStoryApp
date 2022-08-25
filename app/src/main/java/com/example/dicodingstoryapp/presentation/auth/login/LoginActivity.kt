@@ -29,6 +29,8 @@ class LoginActivity : AppCompatActivity() {
             initBinding()
             lifecycleScope.launchWhenStarted { setupEvent() }
         }
+
+        supportActionBar?.hide()
     }
 
     private suspend fun ActivityLoginBinding.setupEvent() {

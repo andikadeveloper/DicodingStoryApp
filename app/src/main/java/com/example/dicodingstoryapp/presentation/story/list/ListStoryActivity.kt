@@ -8,5 +8,7 @@ class ListStoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_story)
+
+        supportActionBar?.title = getString(R.string.your_story)
     }
 }

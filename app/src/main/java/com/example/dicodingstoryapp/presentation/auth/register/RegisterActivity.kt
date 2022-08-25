@@ -26,6 +26,8 @@ class RegisterActivity : AppCompatActivity() {
             initBinding()
             lifecycleScope.launchWhenStarted { setupEvent() }
         }
+
+        supportActionBar?.hide()
     }
 
     private suspend fun ActivityRegisterBinding.setupEvent() {
