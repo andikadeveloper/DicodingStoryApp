@@ -50,7 +50,6 @@ class ListStoryActivity : AppCompatActivity() {
         rvStory.apply {
             layoutManager = LinearLayoutManager(root.context)
             adapter = storyAdapter
-            setHasFixedSize(true)
         }
     }
 }
