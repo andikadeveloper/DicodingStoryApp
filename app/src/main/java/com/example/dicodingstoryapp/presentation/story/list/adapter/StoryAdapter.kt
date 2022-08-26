@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.dicodingstoryapp.R
+import com.example.dicodingstoryapp.core.withDateFormat
 import com.example.dicodingstoryapp.databinding.ItemStoryBinding
 import com.example.dicodingstoryapp.domain.model.Story
 import com.example.dicodingstoryapp.presentation.story.detail.DetailStoryActivity
@@ -39,7 +40,7 @@ class StoryAdapter: ListAdapter<Story, StoryAdapter.StoryViewHolder>(DIFF_CALLBA
                 error(R.drawable.img_empty_story)
             }
             tvItemName.text = name
-            tvItemDate.text = createdAt
+            tvItemDate.text = createdAt.withDateFormat()
         }
 
         root.setOnClickListener { navigateToDetailStory(story) }
