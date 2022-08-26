@@ -17,8 +17,6 @@
             android:src="@drawable/img_empty_story"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:layout_marginTop="@dimen/dimen_16"
-            android:layout_marginHorizontal="@dimen/dimen_16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>

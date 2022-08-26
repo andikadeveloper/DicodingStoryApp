@@ -16,4 +16,7 @@
     <string name="story_date_transition">story date transition</string>
     <string name="upload">Upload</string>
     <string name="description">Description</string>
+    <string name="settings">Settings</string>
+    <string name="title_camera_permission_alert">Camera permission required</string>
+    <string name="desc_camera_permission_alert">To take pictures, you must give the camera permission</string>
 </resources>
