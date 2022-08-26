@@ -2,6 +2,7 @@ package com.example.dicodingstoryapp.presentation.story.add
 
 import android.Manifest
 import android.content.Intent
+import android.content.Intent.ACTION_GET_CONTENT
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -13,9 +14,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.widget.addTextChangedListener
 import coil.load
 import com.example.dicodingstoryapp.R
 import com.example.dicodingstoryapp.core.createCustomTempFile
+import com.example.dicodingstoryapp.core.reduceFileImage
+import com.example.dicodingstoryapp.core.uriToFile
 import com.example.dicodingstoryapp.databinding.ActivityAddStoryBinding
 import java.io.File
 
@@ -23,6 +27,7 @@ class AddStoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddStoryBinding
 
     private lateinit var currentPhotoPath: String
+    private var photoFile: File? = null
 
     private val launcherIntentCamera = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -30,7 +35,18 @@ class AddStoryActivity : AppCompatActivity() {
         if (it.resultCode == RESULT_OK) {
             val file = File(currentPhotoPath)
 
-            binding.ivPhotoPreview.load(file)
+            renderPreviewImage(file)
+        }
+    }
+
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == RESULT_OK) {
+            val selectedImg = it.data?.data as Uri
+            val file = uriToFile(selectedImg, this@AddStoryActivity)
+
+            renderPreviewImage(file)
         }
     }
 
@@ -58,6 +74,27 @@ class AddStoryActivity : AppCompatActivity() {
 
     private fun ActivityAddStoryBinding.initListeners() {
         ibCamera.setOnClickListener { startTakePhoto() }
+
+        ibPhoto.setOnClickListener { startGallery() }
+
+        buttonAdd.setOnClickListener { uploadImage() }
+
+        edAddDescription.addTextChangedListener { setActiveInActiveButtonAdd() }
+    }
+
+    private fun renderPreviewImage(file: File) {
+        photoFile = file
+
+        binding.apply {
+            ivPhotoPreview.load(photoFile)
+            setActiveInActiveButtonAdd()
+        }
+    }
+
+    private fun ActivityAddStoryBinding.uploadImage() {
+        if (photoFile == null) return
+
+        val file = reduceFileImage(photoFile as File)
     }
 
     private fun startTakePhoto() {
@@ -78,6 +115,16 @@ class AddStoryActivity : AppCompatActivity() {
         launcherIntentCamera.launch(intent)
     }
 
+    private fun startGallery() {
+        val intent = Intent().apply {
+            action = ACTION_GET_CONTENT
+            type = "image/*"
+        }
+        val chooser = Intent.createChooser(intent, getString(R.string.choose_picture))
+        launcherIntentGallery.launch(chooser)
+
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -90,6 +137,23 @@ class AddStoryActivity : AppCompatActivity() {
                 alertPermissionCamera()
             }
         }
+    }
+
+    private fun ActivityAddStoryBinding.setActiveInActiveButtonAdd() {
+        buttonAdd.isEnabled = false
+
+        val description = edAddDescription.text.toString().trim()
+
+        val rules = listOf(
+            photoFile != null,
+            description.isNotEmpty()
+        )
+
+        for (isValid in rules) {
+            if (!isValid) return
+        }
+
+        buttonAdd.isEnabled = true
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {

@@ -13,7 +13,7 @@
         <ImageView
             android:id="@+id/iv_photo_preview"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:src="@drawable/img_empty_story"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
@@ -67,6 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/upload"
+            android:enabled="false"
             android:layout_marginTop="@dimen/dimen_16"
             android:layout_marginHorizontal="@dimen/dimen_16"
             app:layout_constraintStart_toStartOf="parent"
