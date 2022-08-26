@@ -10,4 +10,8 @@
     <string name="not_have_account">Don\'t have account?</string>
     <string name="story">Story</string>
     <string name="logout">Logout</string>
+    <string name="story_photo_transition">story photo transition</string>
+    <string name="story_user_photo_transition">story user photo transition</string>
+    <string name="story_name_transition">story name transition</string>
+    <string name="story_date_transition">story date transition</string>
 </resources>
