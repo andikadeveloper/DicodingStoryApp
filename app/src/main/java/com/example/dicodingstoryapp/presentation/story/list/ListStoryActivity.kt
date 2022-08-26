@@ -13,6 +13,7 @@ import com.example.dicodingstoryapp.core.Resource
 import com.example.dicodingstoryapp.core.showToast
 import com.example.dicodingstoryapp.databinding.ActivityListStoryBinding
 import com.example.dicodingstoryapp.presentation.auth.login.LoginActivity
+import com.example.dicodingstoryapp.presentation.story.add.AddStoryActivity
 import com.example.dicodingstoryapp.presentation.story.list.adapter.StoryAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -56,6 +57,8 @@ class ListStoryActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(root.context)
             adapter = storyAdapter
         }
+
+        fabAddStory.setOnClickListener { navigateToAddStory() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -80,7 +83,11 @@ class ListStoryActivity : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        overridePendingTransition(R.anim.slide_up, R.anim.anim_nothing)
+        startActivity(intent)
+    }
+
+    private fun navigateToAddStory() {
+        val intent = Intent(this, AddStoryActivity::class.java)
         startActivity(intent)
     }
 }
