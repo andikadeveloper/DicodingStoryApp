@@ -4,6 +4,7 @@ import com.example.dicodingstoryapp.core.Resource
 import com.example.dicodingstoryapp.data.repository.StoryRepository
 import com.example.dicodingstoryapp.domain.model.Story
 import kotlinx.coroutines.flow.Flow
+import java.io.File
 import javax.inject.Inject
 
 class StoryInteractor @Inject constructor(
@@ -13,5 +14,8 @@ class StoryInteractor @Inject constructor(
         return storyRepository.getAllStory(page, size, isIncludeLocation)
     }
 
-    override fun addNewStory() = storyRepository.addNewStory()
+    override fun addNewStory(description: String, photo: File) = storyRepository.addNewStory(
+        description = description,
+        photo = photo,
+    )
 }

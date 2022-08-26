@@ -20,5 +20,5 @@ interface StoryService {
     suspend fun createNewStory(
         @Part("description") description: RequestBody,
         @Part photo: MultipartBody.Part,
-    ): CommonResponse
+    ): NetworkResponse<CommonResponse, CommonResponse>
 }

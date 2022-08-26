@@ -9,8 +9,9 @@ import com.example.dicodingstoryapp.data.source.remote.responses.StoryResponse
 import com.example.dicodingstoryapp.data.utils.NetworkBoundResource
 import com.example.dicodingstoryapp.domain.model.Story
 import com.example.dicodingstoryapp.domain.repository.IStoryRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
+import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -40,7 +41,17 @@ class StoryRepository @Inject constructor(
             }
         }.asFlow()
 
-    override fun addNewStory(): Flow<Resource<Boolean>> {
-        TODO("Not yet implemented")
+    override fun addNewStory(description: String, photo: File): Flow<Resource<String>> {
+        return flow {
+            emit(Resource.Loading)
+
+            when (val result = storyRemoteSource.addNewStory(
+                description = description,
+                photo = photo,
+            ).first()) {
+                is ApiResponse.Error -> emit(Resource.Error(result.message))
+                is ApiResponse.Success -> emit(Resource.Success(result.data))
+            }
+        }.flowOn(Dispatchers.IO)
     }
 }

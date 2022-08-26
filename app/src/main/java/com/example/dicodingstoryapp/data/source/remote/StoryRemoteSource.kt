@@ -8,6 +8,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -34,6 +40,31 @@ class StoryRemoteSource @Inject constructor(
                 }
             }
 
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun addNewStory(description: String, photo: File): Flow<ApiResponse<String>> {
+        return flow {
+            val descRequestBody = description.toRequestBody("text/plain".toMediaType())
+            val photoRequestBody = photo.asRequestBody("image/jpeg".toMediaTypeOrNull())
+
+            val photoMultiPart = MultipartBody.Part.createFormData(
+                "photo",
+                photo.name,
+                photoRequestBody
+            )
+
+            when (val response = storyService.createNewStory(
+                description = descRequestBody,
+                photo = photoMultiPart
+            )) {
+                is NetworkResponse.Success -> {
+                    emit(ApiResponse.Success(response.body.message))
+                }
+                is NetworkResponse.Error -> {
+                    emit(ApiResponse.Error(response.body?.message ?: ""))
+                }
+            }
         }.flowOn(Dispatchers.IO)
     }
 }
