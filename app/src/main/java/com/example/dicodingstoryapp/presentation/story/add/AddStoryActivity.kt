@@ -74,7 +74,7 @@ class AddStoryActivity : AppCompatActivity() {
 
         with (binding) {
             initBinding()
-            lifecycleScope.launchWhenStarted { setupEvent() }
+            lifecycleScope.launchWhenCreated { setupEvent() }
         }
     }
 

@@ -13,4 +13,6 @@ class StoryLocalSource @Inject constructor(
     fun getAllStory(): Flow<List<StoryEntity>> = storyDao.getAllStory()
 
     suspend fun insertStory(stories: List<StoryEntity>) = storyDao.insertStory(stories)
+
+    suspend fun deleteAllStory() = storyDao.deleteAllStory()
 }

@@ -29,13 +29,14 @@ class StoryRepository @Inject constructor(
                 }
             }
 
-            override fun shouldFetch(data: List<Story>?) = data.isNullOrEmpty()
+            override fun shouldFetch(data: List<Story>?) = true
 
             override suspend fun createCall(): Flow<ApiResponse<List<StoryResponse>>> {
                 return storyRemoteSource.getAllStory(page, size, isIncludeLocation)
             }
 
             override suspend fun saveCallResult(data: List<StoryResponse>) {
+                storyLocalSource.deleteAllStory()
                 val stories = data.map { storyMapper.fromResponseToEntity(it) }
                 storyLocalSource.insertStory(stories)
             }

@@ -1,9 +1,6 @@
 package com.example.dicodingstoryapp.data.source.local.room
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.dicodingstoryapp.data.source.local.entity.StoryEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -14,4 +11,7 @@ interface StoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertStory(stories: List<StoryEntity>)
+
+    @Query("DELETE FROM story")
+    suspend fun deleteAllStory()
 }
