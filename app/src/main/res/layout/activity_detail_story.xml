@@ -6,4 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".presentation.story.detail.DetailStoryActivity">
 
+    <ImageView
+        android:id="@+id/iv_detail_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_empty_story"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iv_detail_user_photo"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:src="@drawable/img_user"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:layout_marginStart="@dimen/dimen_16"
+        android:layout_marginTop="@dimen/dimen_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_detail_photo"/>
+
+    <TextView
+        android:id="@+id/tv_detail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Lorem"
+        android:layout_marginStart="@dimen/dimen_16"
+        app:layout_constraintStart_toEndOf="@id/iv_detail_user_photo"
+        app:layout_constraintTop_toTopOf="@id/iv_detail_user_photo"
+        app:layout_constraintBottom_toTopOf="@id/tv_detail_date"/>
+
+    <TextView
+        android:id="@+id/tv_detail_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="26 Agustus 2022"
+        android:layout_marginStart="@dimen/dimen_16"
+        app:layout_constraintStart_toEndOf="@id/iv_detail_user_photo"
+        app:layout_constraintBottom_toBottomOf="@id/iv_detail_user_photo"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_name"/>
+
+    <TextView
+        android:id="@+id/tv_detail_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Lorem ipsum"
+        android:layout_marginStart="@dimen/dimen_16"
+        android:layout_marginTop="@dimen/dimen_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_detail_user_photo"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

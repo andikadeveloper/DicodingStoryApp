@@ -32,9 +32,6 @@ class StoryAdapter: ListAdapter<Story, StoryAdapter.StoryViewHolder>(DIFF_CALLBA
         divider.isVisible = position != itemCount - 1
 
         story.apply {
-            ivUserPhoto.load(R.drawable.img_user) {
-                CircleCropTransformation()
-            }
             ivItemPhoto.load(photoUrl) {
                 placeholder(R.drawable.img_empty_story)
                 error(R.drawable.img_empty_story)
