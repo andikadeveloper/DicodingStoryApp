@@ -10,20 +10,27 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.example.dicodingstoryapp.R
 import com.example.dicodingstoryapp.core.createCustomTempFile
 import com.example.dicodingstoryapp.core.reduceFileImage
+import com.example.dicodingstoryapp.core.showToast
 import com.example.dicodingstoryapp.core.uriToFile
 import com.example.dicodingstoryapp.databinding.ActivityAddStoryBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 
+@AndroidEntryPoint
 class AddStoryActivity : AppCompatActivity() {
+    private val viewModel by viewModels<AddStoryViewModel>()
     private lateinit var binding: ActivityAddStoryBinding
 
     private lateinit var currentPhotoPath: String
@@ -55,6 +62,8 @@ class AddStoryActivity : AppCompatActivity() {
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.title = getString(R.string.new_story)
+
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
                 this,
@@ -65,11 +74,31 @@ class AddStoryActivity : AppCompatActivity() {
 
         with (binding) {
             initBinding()
+            lifecycleScope.launchWhenStarted { setupEvent() }
         }
     }
 
     private fun ActivityAddStoryBinding.initBinding() {
         initListeners()
+    }
+
+    private suspend fun ActivityAddStoryBinding.setupEvent() {
+        viewModel.event.collect {
+            when (it) {
+                is UiEvent.Loading -> renderLoading()
+                is UiEvent.Error -> {
+                    renderLoading(false)
+
+                    showToast(it.message)
+                }
+                is UiEvent.Success -> {
+                    renderLoading(false)
+
+                    showToast(it.message)
+                    navigateToListStory()
+                }
+            }
+        }
     }
 
     private fun ActivityAddStoryBinding.initListeners() {
@@ -80,6 +109,10 @@ class AddStoryActivity : AppCompatActivity() {
         buttonAdd.setOnClickListener { uploadImage() }
 
         edAddDescription.addTextChangedListener { setActiveInActiveButtonAdd() }
+    }
+
+    private fun ActivityAddStoryBinding.renderLoading(isLoading: Boolean = true) {
+        pbAddStory.isVisible = isLoading
     }
 
     private fun renderPreviewImage(file: File) {
@@ -95,6 +128,12 @@ class AddStoryActivity : AppCompatActivity() {
         if (photoFile == null) return
 
         val file = reduceFileImage(photoFile as File)
+        val description = edAddDescription.text.toString().trim()
+
+        viewModel.addNewStory(
+            description = description,
+            photo = file,
+        )
     }
 
     private fun startTakePhoto() {
@@ -123,6 +162,10 @@ class AddStoryActivity : AppCompatActivity() {
         val chooser = Intent.createChooser(intent, getString(R.string.choose_picture))
         launcherIntentGallery.launch(chooser)
 
+    }
+
+    private fun navigateToListStory() {
+        finish()
     }
 
     override fun onRequestPermissionsResult(
