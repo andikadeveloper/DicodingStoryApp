@@ -14,4 +14,6 @@
     <string name="story_user_photo_transition">story user photo transition</string>
     <string name="story_name_transition">story name transition</string>
     <string name="story_date_transition">story date transition</string>
+    <string name="upload">Upload</string>
+    <string name="description">Description</string>
 </resources>

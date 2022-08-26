@@ -2,11 +2,14 @@ package com.example.dicodingstoryapp.presentation.story.add
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.dicodingstoryapp.R
+import com.example.dicodingstoryapp.databinding.ActivityAddStoryBinding
 
 class AddStoryActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityAddStoryBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_story)
+        binding = ActivityAddStoryBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 }
