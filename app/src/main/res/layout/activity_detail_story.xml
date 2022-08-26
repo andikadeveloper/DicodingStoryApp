@@ -1,65 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.story.detail.DetailStoryActivity">
 
-    <ImageView
-        android:id="@+id/iv_detail_photo"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/img_empty_story"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        android:transitionName="@string/story_photo_transition"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_detail_user_photo"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:src="@drawable/img_user"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        android:transitionName="@string/story_user_photo_transition"
-        android:layout_marginStart="@dimen/dimen_16"
-        android:layout_marginTop="@dimen/dimen_16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_detail_photo"/>
+        <ImageView
+            android:id="@+id/iv_detail_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_empty_story"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:transitionName="@string/story_photo_transition"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/tv_detail_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Lorem"
-        android:transitionName="@string/story_name_transition"
-        android:layout_marginStart="@dimen/dimen_16"
-        app:layout_constraintStart_toEndOf="@id/iv_detail_user_photo"
-        app:layout_constraintTop_toTopOf="@id/iv_detail_user_photo"
-        app:layout_constraintBottom_toTopOf="@id/tv_detail_date"/>
+        <ImageView
+            android:id="@+id/iv_detail_user_photo"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/img_user"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:transitionName="@string/story_user_photo_transition"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_detail_photo"/>
 
-    <TextView
-        android:id="@+id/tv_detail_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="26 Agustus 2022"
-        android:transitionName="@string/story_date_transition"
-        android:layout_marginStart="@dimen/dimen_16"
-        app:layout_constraintStart_toEndOf="@id/iv_detail_user_photo"
-        app:layout_constraintBottom_toBottomOf="@id/iv_detail_user_photo"
-        app:layout_constraintTop_toBottomOf="@id/tv_detail_name"/>
+        <TextView
+            android:id="@+id/tv_detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Lorem"
+            android:transitionName="@string/story_name_transition"
+            android:layout_marginStart="@dimen/dimen_16"
+            app:layout_constraintStart_toEndOf="@id/iv_detail_user_photo"
+            app:layout_constraintTop_toTopOf="@id/iv_detail_user_photo"
+            app:layout_constraintBottom_toTopOf="@id/tv_detail_date"/>
 
-    <TextView
-        android:id="@+id/tv_detail_description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        tools:text="Lorem ipsum"
-        android:layout_marginHorizontal="@dimen/dimen_16"
-        android:layout_marginTop="@dimen/dimen_16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_detail_user_photo"/>
+        <TextView
+            android:id="@+id/tv_detail_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="26 Agustus 2022"
+            android:transitionName="@string/story_date_transition"
+            android:layout_marginStart="@dimen/dimen_16"
+            app:layout_constraintStart_toEndOf="@id/iv_detail_user_photo"
+            app:layout_constraintBottom_toBottomOf="@id/iv_detail_user_photo"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_name"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_detail_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Lorem ipsum"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_detail_user_photo"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
