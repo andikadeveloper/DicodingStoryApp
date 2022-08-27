@@ -151,8 +151,6 @@ class AddStoryActivity : AppCompatActivity() {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
             launcherIntentCamera.launch(intent)
         }
-
-        launcherIntentCamera.launch(intent)
     }
 
     private fun startGallery() {
