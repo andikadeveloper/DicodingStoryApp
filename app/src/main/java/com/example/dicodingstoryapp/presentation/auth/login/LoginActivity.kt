@@ -99,6 +99,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun ActivityLoginBinding.renderLoading(isLoading: Boolean = true) {
         pbLogin.isVisible = isLoading
+        btnLogin.isEnabled = !isLoading
     }
 
     private fun ActivityLoginBinding.setupAnimation() {

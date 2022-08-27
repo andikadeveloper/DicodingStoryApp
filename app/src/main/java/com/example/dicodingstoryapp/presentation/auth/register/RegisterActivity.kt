@@ -99,6 +99,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun ActivityRegisterBinding.renderLoading(isLoading: Boolean = true) {
         pbRegister.isVisible = isLoading
+        btnRegister.isEnabled = !isLoading
     }
 
     private fun ActivityRegisterBinding.setupAnimation() {

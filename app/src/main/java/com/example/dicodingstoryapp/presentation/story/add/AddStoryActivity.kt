@@ -113,6 +113,7 @@ class AddStoryActivity : AppCompatActivity() {
 
     private fun ActivityAddStoryBinding.renderLoading(isLoading: Boolean = true) {
         pbAddStory.isVisible = isLoading
+        buttonAdd.isEnabled = !isLoading
     }
 
     private fun renderPreviewImage(file: File) {
