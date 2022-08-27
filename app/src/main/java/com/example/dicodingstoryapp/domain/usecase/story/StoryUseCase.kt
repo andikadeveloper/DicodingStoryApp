@@ -8,4 +8,5 @@ import java.io.File
 interface StoryUseCase {
     fun getAllStory(page: Int, size: Int, isIncludeLocation: Boolean): Flow<Resource<List<Story>>>
     fun addNewStory(description: String, photo: File): Flow<Resource<String>>
+    fun deleteAllStory()
 }

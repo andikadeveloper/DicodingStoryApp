@@ -10,12 +10,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListStoryViewModel @Inject constructor(
-    storyUseCase: StoryUseCase,
+    private val storyUseCase: StoryUseCase,
     private val sharedPreferences: SharedPreferences,
 ): ViewModel() {
     val stories = storyUseCase.getAllStory(1, 20, false).asLiveData()
 
     fun logout() {
         sharedPreferences.edit { clear() }
+        storyUseCase.deleteAllStory()
     }
 }

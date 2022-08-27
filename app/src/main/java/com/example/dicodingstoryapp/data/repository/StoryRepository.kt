@@ -55,4 +55,10 @@ class StoryRepository @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
     }
+
+    override fun deleteAllStory() {
+        flow<Unit> {
+            storyLocalSource.deleteAllStory()
+        }.flowOn(Dispatchers.IO)
+    }
 }

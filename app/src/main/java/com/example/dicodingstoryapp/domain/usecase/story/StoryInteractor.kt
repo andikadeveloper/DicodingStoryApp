@@ -18,4 +18,6 @@ class StoryInteractor @Inject constructor(
         description = description,
         photo = photo,
     )
+
+    override fun deleteAllStory() = storyRepository.deleteAllStory()
 }
