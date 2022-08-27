@@ -3,6 +3,7 @@ package com.example.dicodingstoryapp.presentation.story.list
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -85,6 +86,10 @@ class ListStoryActivity : AppCompatActivity() {
             R.id.action_logout -> {
                 viewModel.logout()
                 navigateToLogin()
+                true
+            }
+            R.id.action_change_language -> {
+                startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
                 true
             }
             else -> true

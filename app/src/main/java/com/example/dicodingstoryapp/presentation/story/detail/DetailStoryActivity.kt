@@ -18,6 +18,8 @@ class DetailStoryActivity : AppCompatActivity() {
 
         val story = intent.getParcelableExtra<Story>(EXTRA_STORY)
         story?.let { binding.bindStory(it) }
+
+        supportActionBar?.hide()
     }
 
     private fun ActivityDetailStoryBinding.bindStory(story: Story) {
