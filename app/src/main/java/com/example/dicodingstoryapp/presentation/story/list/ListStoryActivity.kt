@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dicodingstoryapp.R
 import com.example.dicodingstoryapp.core.Resource
@@ -39,13 +40,13 @@ class ListStoryActivity : AppCompatActivity() {
     private fun ActivityListStoryBinding.fetchStories() {
         viewModel.stories.observe(this@ListStoryActivity) {
             when (it) {
-                is Resource.Loading -> {
-                    showToast("Loading")
-                }
+                is Resource.Loading -> renderLoading()
                 is Resource.Error -> {
+                    renderLoading(false)
                     showToast(it.message)
                 }
                 is Resource.Success -> {
+                    renderLoading(false)
                     storyAdapter.submitList(it.data)
                 }
             }
@@ -59,6 +60,10 @@ class ListStoryActivity : AppCompatActivity() {
         }
 
         fabAddStory.setOnClickListener { navigateToAddStory() }
+    }
+
+    private fun ActivityListStoryBinding.renderLoading(isLoading: Boolean = true) {
+        pbStory.isVisible = isLoading
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
