@@ -1,8 +1,11 @@
 package com.example.dicodingstoryapp.presentation.auth.login
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -27,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
 
         with (binding) {
             initBinding()
+            setupAnimation()
             lifecycleScope.launchWhenStarted { setupEvent() }
         }
 
@@ -95,6 +99,27 @@ class LoginActivity : AppCompatActivity() {
 
     private fun ActivityLoginBinding.renderLoading(isLoading: Boolean = true) {
         pbLogin.isVisible = isLoading
+    }
+
+    private fun ActivityLoginBinding.setupAnimation() {
+        val objImgLogin = ObjectAnimator.ofFloat(ivLogin, View.TRANSLATION_Y, 0f).setDuration(500)
+
+        val objEdEmail = ObjectAnimator.ofFloat(edLoginEmail, View.ALPHA, 1f).setDuration(500)
+        val objEdPassWord = ObjectAnimator.ofFloat(edLoginPassword, View.ALPHA, 1f).setDuration(500)
+
+        val objTvNotHaveAccount = ObjectAnimator.ofFloat(tvNotHaveAccount, View.ALPHA, 1f).setDuration(500)
+        val objTvRegister = ObjectAnimator.ofFloat(tvRegister, View.ALPHA, 1f).setDuration(500)
+
+        val objBtnLogin = ObjectAnimator.ofFloat(btnLogin, View.TRANSLATION_Y, 0f).setDuration(500)
+
+        AnimatorSet().apply {
+            play(objEdEmail).after(objImgLogin)
+            play(objEdPassWord).after(objEdEmail)
+            play(objTvNotHaveAccount).with(objTvRegister)
+            play(objTvNotHaveAccount).after(objEdPassWord)
+            play(objBtnLogin).after(objTvNotHaveAccount)
+            start()
+        }
     }
 
     private fun navigateToListStory() {
