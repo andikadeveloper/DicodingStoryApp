@@ -1,7 +1,10 @@
 package com.example.dicodingstoryapp.presentation.auth.register
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -24,6 +27,7 @@ class RegisterActivity : AppCompatActivity() {
 
         with (binding) {
             initBinding()
+            setupAnimation()
             lifecycleScope.launchWhenStarted { setupEvent() }
         }
 
@@ -95,6 +99,25 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun ActivityRegisterBinding.renderLoading(isLoading: Boolean = true) {
         pbRegister.isVisible = isLoading
+    }
+
+    private fun ActivityRegisterBinding.setupAnimation() {
+        val objImgRegister = ObjectAnimator.ofFloat(ivRegister, View.TRANSLATION_Y, 0f).setDuration(500)
+
+        val objEdName = ObjectAnimator.ofFloat(edRegisterName, View.ALPHA, 1f).setDuration(500)
+        val objEdEmail = ObjectAnimator.ofFloat(edRegisterEmail, View.ALPHA, 1f).setDuration(500)
+        val objEdPassword = ObjectAnimator.ofFloat(edRegisterPassword, View.ALPHA, 1f).setDuration(500)
+
+        val objBtnRegister = ObjectAnimator.ofFloat(btnRegister, View.TRANSLATION_Y, 0f).setDuration(500)
+
+        AnimatorSet().apply {
+            play(objEdName).after(objImgRegister)
+            play(objEdEmail).after(objEdName)
+            play(objEdPassword).after(objEdEmail)
+            play(objBtnRegister).after(objEdPassword)
+
+            start()
+        }
     }
 
     private fun navigateToLogin() {
