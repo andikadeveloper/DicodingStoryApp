@@ -13,6 +13,7 @@ import com.example.dicodingstoryapp.R
 import com.example.dicodingstoryapp.core.Resource
 import com.example.dicodingstoryapp.core.showToast
 import com.example.dicodingstoryapp.databinding.ActivityListStoryBinding
+import com.example.dicodingstoryapp.domain.model.Story
 import com.example.dicodingstoryapp.presentation.auth.login.LoginActivity
 import com.example.dicodingstoryapp.presentation.story.add.AddStoryActivity
 import com.example.dicodingstoryapp.presentation.story.list.adapter.StoryAdapter
@@ -45,10 +46,7 @@ class ListStoryActivity : AppCompatActivity() {
                     renderLoading(false)
                     showToast(it.message)
                 }
-                is Resource.Success -> {
-                    renderLoading(false)
-                    storyAdapter.submitList(it.data)
-                }
+                is Resource.Success -> renderSuccess(it.data)
             }
         }
     }
@@ -64,6 +62,15 @@ class ListStoryActivity : AppCompatActivity() {
 
     private fun ActivityListStoryBinding.renderLoading(isLoading: Boolean = true) {
         pbStory.isVisible = isLoading
+    }
+
+    private fun ActivityListStoryBinding.renderSuccess(data: List<Story>) {
+        renderLoading(false)
+
+        tvEmptyStory.isVisible = data.isEmpty()
+
+        if (data.isEmpty()) return
+        storyAdapter.submitList(data)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
