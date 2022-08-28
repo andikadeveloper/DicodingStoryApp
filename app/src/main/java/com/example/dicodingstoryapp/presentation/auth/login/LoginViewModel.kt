@@ -12,15 +12,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class UiEvent {
-    object Loading: UiEvent()
-    data class Error(val message: String): UiEvent()
-    data class Success(val message: String): UiEvent()
+    object Loading : UiEvent()
+    data class Error(val message: String) : UiEvent()
+    data class Success(val message: String) : UiEvent()
 }
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val useCase: AuthUseCase
-): ViewModel() {
+) : ViewModel() {
     private val _event = Channel<UiEvent>(Channel.BUFFERED)
     val event = _event.receiveAsFlow()
 

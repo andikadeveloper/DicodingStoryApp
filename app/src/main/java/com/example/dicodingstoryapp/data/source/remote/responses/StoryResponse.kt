@@ -4,24 +4,24 @@ import com.squareup.moshi.Json
 
 data class StoryResponse(
 
-    @Json(name="photoUrl")
+    @Json(name = "photoUrl")
     val photoUrl: String? = null,
 
-    @Json(name="createdAt")
+    @Json(name = "createdAt")
     val createdAt: String? = null,
 
-    @Json(name="name")
+    @Json(name = "name")
     val name: String? = null,
 
-    @Json(name="description")
+    @Json(name = "description")
     val description: String? = null,
 
-    @Json(name="lon")
+    @Json(name = "lon")
     val lon: Double? = null,
 
-    @Json(name="id")
+    @Json(name = "id")
     val id: String? = null,
 
-    @Json(name="lat")
+    @Json(name = "lat")
     val lat: Double? = null
 )

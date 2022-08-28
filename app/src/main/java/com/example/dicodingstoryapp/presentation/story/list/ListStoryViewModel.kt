@@ -12,7 +12,7 @@ import javax.inject.Inject
 class ListStoryViewModel @Inject constructor(
     private val storyUseCase: StoryUseCase,
     private val sharedPreferences: SharedPreferences,
-): ViewModel() {
+) : ViewModel() {
     val stories = storyUseCase.getAllStory(1, 20, false).asLiveData()
 
     fun logout() {

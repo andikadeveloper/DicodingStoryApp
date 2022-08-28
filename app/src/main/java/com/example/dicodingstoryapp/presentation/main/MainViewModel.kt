@@ -9,6 +9,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     sharedPreferences: SharedPreferences
-): ViewModel() {
+) : ViewModel() {
     val token = sharedPreferences.getString(PreferencesKey.TOKEN_KEY, "") ?: ""
 }

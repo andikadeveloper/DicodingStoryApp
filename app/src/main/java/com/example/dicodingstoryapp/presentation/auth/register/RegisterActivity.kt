@@ -8,12 +8,15 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.dicodingstoryapp.core.isValidEmail
 import com.example.dicodingstoryapp.core.showToast
 import com.example.dicodingstoryapp.data.source.remote.request.AuthRequest
 import com.example.dicodingstoryapp.databinding.ActivityRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
@@ -25,10 +28,14 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        with (binding) {
+        with(binding) {
             initBinding()
             setupAnimation()
-            lifecycleScope.launchWhenStarted { setupEvent() }
+            lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    setupEvent()
+                }
+            }
         }
 
         supportActionBar?.hide()
@@ -103,13 +110,16 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun ActivityRegisterBinding.setupAnimation() {
-        val objImgRegister = ObjectAnimator.ofFloat(ivRegister, View.TRANSLATION_Y, 0f).setDuration(500)
+        val objImgRegister =
+            ObjectAnimator.ofFloat(ivRegister, View.TRANSLATION_Y, 0f).setDuration(500)
 
         val objEdName = ObjectAnimator.ofFloat(edRegisterName, View.ALPHA, 1f).setDuration(500)
         val objEdEmail = ObjectAnimator.ofFloat(edRegisterEmail, View.ALPHA, 1f).setDuration(500)
-        val objEdPassword = ObjectAnimator.ofFloat(edRegisterPassword, View.ALPHA, 1f).setDuration(500)
+        val objEdPassword =
+            ObjectAnimator.ofFloat(edRegisterPassword, View.ALPHA, 1f).setDuration(500)
 
-        val objBtnRegister = ObjectAnimator.ofFloat(btnRegister, View.TRANSLATION_Y, 0f).setDuration(500)
+        val objBtnRegister =
+            ObjectAnimator.ofFloat(btnRegister, View.TRANSLATION_Y, 0f).setDuration(500)
 
         AnimatorSet().apply {
             play(objEdName).after(objImgRegister)

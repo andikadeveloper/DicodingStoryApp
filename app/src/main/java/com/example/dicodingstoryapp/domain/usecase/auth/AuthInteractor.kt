@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class AuthInteractor @Inject constructor(
     private val authRepository: IAuthRepository
-): AuthUseCase {
+) : AuthUseCase {
     override fun register(payload: AuthRequest): Flow<Resource<String>> {
         return authRepository.register(payload)
     }

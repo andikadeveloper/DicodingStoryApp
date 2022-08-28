@@ -33,7 +33,7 @@ class ListStoryActivity : AppCompatActivity() {
 
         supportActionBar?.title = getString(R.string.story)
 
-        with (binding) {
+        with(binding) {
             initBinding()
             fetchStories()
         }

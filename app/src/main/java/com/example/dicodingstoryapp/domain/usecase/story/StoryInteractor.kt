@@ -9,8 +9,12 @@ import javax.inject.Inject
 
 class StoryInteractor @Inject constructor(
     private val storyRepository: StoryRepository
-): StoryUseCase {
-    override fun getAllStory(page: Int, size: Int, isIncludeLocation: Boolean): Flow<Resource<List<Story>>> {
+) : StoryUseCase {
+    override fun getAllStory(
+        page: Int,
+        size: Int,
+        isIncludeLocation: Boolean
+    ): Flow<Resource<List<Story>>> {
         return storyRepository.getAllStory(page, size, isIncludeLocation)
     }
 

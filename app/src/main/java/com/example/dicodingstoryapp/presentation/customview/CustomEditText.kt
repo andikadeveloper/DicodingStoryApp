@@ -11,16 +11,20 @@ import androidx.core.content.ContextCompat
 import com.example.dicodingstoryapp.R
 import com.example.dicodingstoryapp.core.isValidEmail
 
-class CustomEditText: AppCompatEditText {
-    constructor(context: Context): super(context) {
+class CustomEditText : AppCompatEditText {
+    constructor(context: Context) : super(context) {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet): super(context, attrs) {
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int): super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init()
     }
 
@@ -36,7 +40,8 @@ class CustomEditText: AppCompatEditText {
                 when (inputType) {
                     PASSWORD -> {
                         if (s.length < 6) {
-                            background = ContextCompat.getDrawable(context, R.drawable.bg_edit_text_error)
+                            background =
+                                ContextCompat.getDrawable(context, R.drawable.bg_edit_text_error)
                             error = context.getString(R.string.text_error_password)
                         } else {
                             background = ContextCompat.getDrawable(context, R.drawable.bg_edit_text)
@@ -44,7 +49,8 @@ class CustomEditText: AppCompatEditText {
                     }
                     EMAIL -> {
                         if (!s.toString().isValidEmail()) {
-                            background = ContextCompat.getDrawable(context, R.drawable.bg_edit_text_error)
+                            background =
+                                ContextCompat.getDrawable(context, R.drawable.bg_edit_text_error)
                             error = context.getString(R.string.text_error_email)
                         } else {
                             background = ContextCompat.getDrawable(context, R.drawable.bg_edit_text)
@@ -62,7 +68,9 @@ class CustomEditText: AppCompatEditText {
     }
 
     companion object {
-        private val PASSWORD = Integer.decode((InputType.TYPE_TEXT_VARIATION_PASSWORD + 1).toString())
-        private val EMAIL = Integer.decode((InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS + 1).toString())
+        private val PASSWORD =
+            Integer.decode((InputType.TYPE_TEXT_VARIATION_PASSWORD + 1).toString())
+        private val EMAIL =
+            Integer.decode((InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS + 1).toString())
     }
 }

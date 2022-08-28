@@ -18,7 +18,7 @@ import javax.inject.Singleton
 class AuthRepository @Inject constructor(
     private val authRemoteSource: AuthRemoteSource,
     private val authLocalSource: AuthLocalSource,
-): IAuthRepository {
+) : IAuthRepository {
     override fun register(payload: AuthRequest): Flow<Resource<String>> {
         return flow {
             emit(Resource.Loading)

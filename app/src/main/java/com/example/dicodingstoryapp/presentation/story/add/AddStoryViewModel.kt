@@ -12,17 +12,18 @@ import java.io.File
 import javax.inject.Inject
 
 sealed class UiEvent {
-    object Loading: UiEvent()
-    data class Error(val message: String): UiEvent()
-    data class Success(val message: String): UiEvent()
+    object Loading : UiEvent()
+    data class Error(val message: String) : UiEvent()
+    data class Success(val message: String) : UiEvent()
 }
 
 @HiltViewModel
 class AddStoryViewModel @Inject constructor(
     private val storyUseCase: StoryUseCase
-): ViewModel() {
+) : ViewModel() {
     private val _event = Channel<UiEvent>(
-        Channel.BUFFERED)
+        Channel.BUFFERED
+    )
     val event = _event.receiveAsFlow()
 
     fun addNewStory(description: String, photo: File) {

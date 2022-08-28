@@ -21,7 +21,11 @@ class StoryRepository @Inject constructor(
     private val storyLocalSource: StoryLocalSource,
     private val storyMapper: StoryMapper,
 ) : IStoryRepository {
-    override fun getAllStory(page: Int, size: Int, isIncludeLocation: Boolean): Flow<Resource<List<Story>>> =
+    override fun getAllStory(
+        page: Int,
+        size: Int,
+        isIncludeLocation: Boolean
+    ): Flow<Resource<List<Story>>> =
         object : NetworkBoundResource<List<Story>, List<StoryResponse>>() {
             override fun loadFromDB(): Flow<List<Story>> {
                 return storyLocalSource.getAllStory().map { stories ->

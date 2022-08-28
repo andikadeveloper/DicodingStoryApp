@@ -17,7 +17,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import coil.load
 import com.example.dicodingstoryapp.R
 import com.example.dicodingstoryapp.core.createCustomTempFile
@@ -26,6 +28,7 @@ import com.example.dicodingstoryapp.core.showToast
 import com.example.dicodingstoryapp.core.uriToFile
 import com.example.dicodingstoryapp.databinding.ActivityAddStoryBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.io.File
 
 @AndroidEntryPoint
@@ -72,9 +75,13 @@ class AddStoryActivity : AppCompatActivity() {
             )
         }
 
-        with (binding) {
+        with(binding) {
             initBinding()
-            lifecycleScope.launchWhenCreated { setupEvent() }
+            lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    setupEvent()
+                }
+            }
         }
     }
 

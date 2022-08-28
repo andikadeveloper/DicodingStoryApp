@@ -9,7 +9,9 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.dicodingstoryapp.core.isValidEmail
 import com.example.dicodingstoryapp.core.showToast
 import com.example.dicodingstoryapp.data.source.remote.request.AuthRequest
@@ -17,6 +19,7 @@ import com.example.dicodingstoryapp.databinding.ActivityLoginBinding
 import com.example.dicodingstoryapp.presentation.auth.register.RegisterActivity
 import com.example.dicodingstoryapp.presentation.story.list.ListStoryActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
@@ -28,10 +31,14 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        with (binding) {
+        with(binding) {
             initBinding()
             setupAnimation()
-            lifecycleScope.launchWhenStarted { setupEvent() }
+            lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    setupEvent()
+                }
+            }
         }
 
         supportActionBar?.hide()
@@ -108,7 +115,8 @@ class LoginActivity : AppCompatActivity() {
         val objEdEmail = ObjectAnimator.ofFloat(edLoginEmail, View.ALPHA, 1f).setDuration(500)
         val objEdPassWord = ObjectAnimator.ofFloat(edLoginPassword, View.ALPHA, 1f).setDuration(500)
 
-        val objTvNotHaveAccount = ObjectAnimator.ofFloat(tvNotHaveAccount, View.ALPHA, 1f).setDuration(500)
+        val objTvNotHaveAccount =
+            ObjectAnimator.ofFloat(tvNotHaveAccount, View.ALPHA, 1f).setDuration(500)
         val objTvRegister = ObjectAnimator.ofFloat(tvRegister, View.ALPHA, 1f).setDuration(500)
 
         val objBtnLogin = ObjectAnimator.ofFloat(btnLogin, View.TRANSLATION_Y, 0f).setDuration(500)

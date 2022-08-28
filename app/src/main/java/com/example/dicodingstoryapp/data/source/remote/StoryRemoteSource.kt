@@ -21,7 +21,11 @@ import javax.inject.Singleton
 class StoryRemoteSource @Inject constructor(
     private val storyService: StoryService
 ) {
-    suspend fun getAllStory(page: Int, size: Int, isIncludeLocation: Boolean): Flow<ApiResponse<List<StoryResponse>>> {
+    suspend fun getAllStory(
+        page: Int,
+        size: Int,
+        isIncludeLocation: Boolean
+    ): Flow<ApiResponse<List<StoryResponse>>> {
         return flow {
             when (val response = storyService.getStories(
                 page = page,

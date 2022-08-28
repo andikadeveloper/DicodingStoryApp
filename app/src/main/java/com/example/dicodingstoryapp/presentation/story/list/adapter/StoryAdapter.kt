@@ -17,7 +17,7 @@ import com.example.dicodingstoryapp.databinding.ItemStoryBinding
 import com.example.dicodingstoryapp.domain.model.Story
 import com.example.dicodingstoryapp.presentation.story.detail.DetailStoryActivity
 
-class StoryAdapter: ListAdapter<Story, StoryAdapter.StoryViewHolder>(DIFF_CALLBACK) {
+class StoryAdapter : ListAdapter<Story, StoryAdapter.StoryViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
         return StoryViewHolder(
             ItemStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -71,7 +71,7 @@ class StoryAdapter: ListAdapter<Story, StoryAdapter.StoryViewHolder>(DIFF_CALLBA
 
     inner class StoryViewHolder(
         val binding: ItemStoryBinding
-    ): RecyclerView.ViewHolder(binding.root)
+    ) : RecyclerView.ViewHolder(binding.root)
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Story>() {
